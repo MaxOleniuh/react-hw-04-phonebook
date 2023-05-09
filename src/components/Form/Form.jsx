@@ -1,4 +1,5 @@
-import { Component } from 'react';
+
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormStyled,
@@ -6,30 +7,28 @@ import {
   LabelStyled,
   InputStyled,
 } from './Form.styled';
-class Form extends Component {
-  state = {
+const Form = (props) => {
+  const [form, setForm] = useState({
     name: '',
     number: '',
-  };
+  });
 
-  handleChange =  e => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value })
+  const handleChange =  e => {
+    setForm({ ...form, name: e.target.value })
   }
   
-handleSubmit = e => {
+  const handleSubmit = e => {
   e.preventDefault();
   const form = e.currentTarget;
-  this.props.addContact(this.state.name, this.state.number);
+  props.addContact(form.name.value, form.number.value);
   form.reset();
 };
-  render() {
     return (
-      <FormStyled onSubmit={this.handleSubmit}>
+      <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           <span>Name</span>
           <InputStyled
-            onChange={this.handleChange}
+            onChange={handleChange}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -40,7 +39,7 @@ handleSubmit = e => {
         <LabelStyled>
           <span>Number</span>
           <InputStyled
-            onChange={this.handleChange}
+            onChange={handleChange}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -52,8 +51,6 @@ handleSubmit = e => {
       </FormStyled>
     );
   }
-}
-
 Form.propTypes = {
   addContact: PropTypes.func.isRequired,
 };
