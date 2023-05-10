@@ -22,7 +22,7 @@ export const App = () => {
       alert(` ${contact.name} is already in your contacts.`);
       return;
     }
-    setContacts([...contacts, contact]);
+    setContacts((prevState) => [...prevState, contact]);
   }
 
    const changeFilter = value => {
@@ -30,7 +30,7 @@ export const App = () => {
   }
 
    const handleDelete = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));   
+    setContacts((prevState) => prevState.filter(contact => contact.id !== id));   
   }
   
   const filteredContacts = () => {
