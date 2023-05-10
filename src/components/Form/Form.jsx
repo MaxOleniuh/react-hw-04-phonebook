@@ -1,5 +1,3 @@
-
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormStyled,
@@ -8,15 +6,6 @@ import {
   InputStyled,
 } from './Form.styled';
 const Form = (props) => {
-  const [form, setForm] = useState({
-    name: '',
-    number: '',
-  });
-
-  const handleChange =  e => {
-    setForm({ ...form, name: e.target.value })
-  }
-  
   const handleSubmit = e => {
   e.preventDefault();
   const form = e.currentTarget;
@@ -28,7 +17,6 @@ const Form = (props) => {
         <LabelStyled>
           <span>Name</span>
           <InputStyled
-            onChange={handleChange}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -39,7 +27,6 @@ const Form = (props) => {
         <LabelStyled>
           <span>Number</span>
           <InputStyled
-            onChange={handleChange}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
